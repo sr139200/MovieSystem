@@ -1,0 +1,69 @@
+<h1 mat-dialog-title>Add Movie</h1>
+<div mat-dialog-content>
+  <form #registerForm="ngForm" (ngSubmit)="close()">
+    <fieldset>
+      <div class="form-group">
+        <label for="moviename"><span class="req">* </span> Movie Name </label>
+        <input
+          required
+          type="text"
+          [(ngModel)]="movieData.movieName"
+          name="moviename"
+          class="form-control phone"
+          maxlength="28"
+          placeholder="Enter Movie Name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="theatername"
+          ><span class="req">* </span> Theater Name
+        </label>
+        <input
+          required
+          type="text"
+          [(ngModel)]="movieData.theaterName"
+          name="theatername"
+          class="form-control phone"
+          maxlength="28"
+          placeholder="Enter Theater Name"
+          required
+        />
+      </div>
+
+      <div class="form-group">
+        <label for="totaltickets"
+          ><span class="req">* </span> Total Tickets
+        </label>
+        <input
+          required
+          type="number"
+          [(ngModel)]="movieData.availableTickets"
+          name="totaltickets"
+          id="totaltickets"
+          class="form-control phone"
+          maxlength="28"
+          placeholder="Enter Total Tickets"
+          required
+        />
+      </div>
+
+      <div align="end">
+        <input
+          class="btn btn-success"
+          type="submit"
+          name="save"
+          value="Add"
+          [disabled]="registerForm.invalid"
+        />
+        <input
+          class="btn btn-success"
+          name="close"
+          value="Cancel"
+          mat-dialog-close
+        />
+      </div>
+    </fieldset>
+  </form>
+</div>

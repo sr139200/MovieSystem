@@ -1,0 +1,25 @@
+<div style="width: 75vw">
+  <h1 mat-dialog-title>
+    {{ userData.movieInfo.movieTheater.movieName }} - {{
+    userData.movieInfo.movieTheater.theaterName }}
+  </h1>
+
+  <div mat-dialog-content>
+    <p>{{ userData.movieInfo.ticketStatus }}</p>
+    <mat-grid-list cols="10" rowHeight="50px">
+      <mat-grid-tile
+        *ngFor="let seat of userData.seats"
+        [style.background-color]="
+            seat.available ? (seat.selected ? 'red' : 'green') : 'gray'
+          "
+        (click)="toggleSelection(seat)"
+      >
+        {{ seat.number }}
+      </mat-grid-tile>
+    </mat-grid-list>
+  </div>
+
+  <div mat-dialog-actions>
+    <button mat-button (click)="close()">Proceed</button>
+  </div>
+</div>

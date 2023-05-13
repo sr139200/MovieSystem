@@ -1,0 +1,98 @@
+<link
+  href="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/css/bootstrap.min.css"
+  rel="stylesheet"
+  id="bootstrap-css"
+/>
+<script src="//maxcdn.bootstrapcdn.com/bootstrap/3.3.0/js/bootstrap.min.js"></script>
+
+<mat-toolbar style="background-color: rgb(113, 169, 214)">
+  <button
+    mat-icon-button
+    class="example-icon"
+    aria-label="Example icon-button with menu icon"
+  >
+    <mat-icon>menu</mat-icon>
+  </button>
+  <input
+    type="text"
+    [(ngModel)]="search"
+    placeholder="Search"
+    style="color: black; border-radius: 10px"
+  />
+  <span class="example-spacer"></span>
+  <div>
+    <button
+      style="color: black; margin-right: 10px; border-radius: 5px"
+      (click)="addMovie()"
+      *ngIf="isAdmin"
+    >
+      Add Movie
+    </button>
+    <button
+      mat-icon-button
+      [matMenuTriggerFor]="menu"
+      aria-label="Example icon-button with a menu"
+    >
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #menu="matMenu">
+      <button mat-menu-item (click)="logout()" title="Logout">
+        <mat-icon>logout</mat-icon>
+        <span>logout</span>
+      </button>
+      <button mat-menu-item (click)="resetPassword()" title="Reset Password">
+        <mat-icon>edit</mat-icon>
+        <span>change password</span>
+      </button>
+    </mat-menu>
+  </div>
+</mat-toolbar>
+<div class="row">
+  <mat-card
+    *ngFor="let data of allMovies | filter : search"
+    class="example-card col-md-4"
+    style="
+      margin-top: 15px;
+      margin-left: 25px;
+      border: 2px solid black;
+      border-radius: 10px;
+    "
+    ><mat-card-actions align="end">
+      <button
+        *ngIf="isAdmin"
+        style="color: red"
+        mat-icon-button
+        class="example-icon"
+        aria-label="delete movie"
+        (click)="deleteMovie(data)"
+        title="Logout"
+      >
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+    <mat-card-header>
+      <mat-card-title>{{ data.movieTheater.movieName }}</mat-card-title>
+      <mat-card-subtitle>{{ data.movieTheater.theaterName }}</mat-card-subtitle>
+    </mat-card-header>
+    <mat-card-content>
+      <p *ngIf="data.ticketStatus === 'Book now'; else soldOutBlock">
+        Ticket is available
+      </p>
+      <ng-template #soldOutBlock>
+        <p>Ticket is sold out</p>
+      </ng-template>
+    </mat-card-content>
+    <mat-card-actions align="end">
+      <button
+        *ngIf="data.ticketStatus === 'Book now'"
+        (click)="bookTicket(data)"
+        style="border-radius: 5px"
+      >
+        Book Ticket
+      </button>
+      <h2 *ngIf="data.ticketStatus === 'Sold Out'" style="color: red">
+        Sold Out!😌😌
+      </h2>
+    </mat-card-actions>
+  </mat-card>
+</div>
