@@ -7,143 +7,156 @@
 <body>
   <div class="container">
     <mat-tab-group class="col-md-6">
-      <mat-tab label="Register" *ngIf="open">
+      <mat-tab label="Register" style="font-size: 15px">
         <form #registerForm="ngForm" (ngSubmit)="registerNow()">
           <fieldset>
             <div class="form-group">
-              <label for="firstname"
-                ><span class="req">* </span> First Name:
-              </label>
-              <input
-                class="form-control"
-                type="text"
-                [(ngModel)]="user.firstName"
-                #firstname="ngModel"
-                name="firstname"
-                required
-                placeholder="Enter valid first name"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label>First Name</mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="user.firstName"
+                  #firstname="ngModel"
+                  name="firstname"
+                  required
+                  placeholder="Enter valid first name"
+                  required
+                />
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label for="lastname"
-                ><span class="req">* </span> Last Name :
-              </label>
-              <input
-                class="form-control"
-                type="text"
-                [(ngModel)]="user.lastName"
-                #lastname="ngModel"
-                name="lastname"
-                placeholder="Enter valid last name"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label>Last Name</mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="user.lastName"
+                  #lastname="ngModel"
+                  name="lastname"
+                  placeholder="Enter valid last name"
+                  required
+                />
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label for="email"><span class="req">* </span> Email: </label>
-              <input
-                class="form-control"
-                required
-                type="text"
-                [(ngModel)]="user.email"
-                #email="ngModel"
-                name="email"
-                placeholder="Enter valid email"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label>Email</mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  required
+                  type="text"
+                  [(ngModel)]="user.email"
+                  #email="ngModel"
+                  name="email"
+                  placeholder="Enter valid email"
+                />
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label for="email"><span class="req">* </span> Contact: </label>
-              <input
-                class="form-control"
-                required
-                type="text"
-                [(ngModel)]="user.contact"
-                #email="ngModel"
-                name="contact"
-                placeholder="Enter valid contact"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label>Contact</mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  required
+                  type="text"
+                  [(ngModel)]="user.contact"
+                  #email="ngModel"
+                  name="contact"
+                  placeholder="Enter valid contact"
+                  required
+                />
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label for="Name"><span class="req">* </span> Username: </label>
-              <input
-                required
-                type="text"
-                [(ngModel)]="user.username"
-                #username="ngModel"
-                name="username"
-                class="form-control phone"
-                maxlength="28"
-                placeholder="Enter Username"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label> Username</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  [(ngModel)]="user.username"
+                  #username="ngModel"
+                  name="username"
+                  class="form-control phone"
+                  maxlength="28"
+                  placeholder="Enter Username"
+                  required
+                />
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label for="password"
-                ><span class="req">* </span> Password :
-              </label>
-              <input
-                class="form-control"
-                type="password"
-                [(ngModel)]="user.password"
-                #password="ngModel"
-                name="password"
-                placeholder="Enter valid password"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  type="password"
+                  [(ngModel)]="user.password"
+                  #password="ngModel"
+                  name="password"
+                  placeholder="Enter valid password"
+                  required
+                />
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label for="password"
-                ><span class="req">* </span> Confirm Password :
-              </label>
-              <input
-                class="form-control"
-                type="password"
-                [(ngModel)]="user.confirmPassword"
-                #password="ngModel"
-                name="password"
-                placeholder="Enter valid password"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label>Confirm Password</mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  type="password"
+                  [(ngModel)]="user.confirmPassword"
+                  #password="ngModel"
+                  name="password"
+                  placeholder="Enter valid password"
+                  required
+                />
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label for="email"><span class="req">* </span> Role: </label>
-              <input
-                class="form-control"
-                required
-                type="text"
-                [(ngModel)]="user.role"
-                #email="ngModel"
-                name="role"
-                placeholder="Enter valid role"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label>Role</mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  type="text"
+                  [(ngModel)]="user.role"
+                  #email="ngModel"
+                  name="role"
+                  placeholder="Enter valid role"
+                  required
+                />
+              </mat-form-field>
             </div>
 
             <div class="form-group">
-              <label for="securityquestion"
-                ><span class="req">* </span> Security Question(favourite sport):
-              </label>
-              <input
-                class="form-control"
-                required
-                type="text"
-                [(ngModel)]="user.securityQuestion"
-                name="securityquestion"
-                placeholder="Enter favourite sport"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label>Security Question(favourite sport)</mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  required
+                  type="text"
+                  [(ngModel)]="user.securityQuestion"
+                  name="securityquestion"
+                  placeholder="Enter favourite sport"
+                />
+              </mat-form-field>
             </div>
 
-            <div>
+            <div style="text-align: center">
               <input
                 class="btn btn-success"
                 type="submit"
@@ -151,66 +164,60 @@
                 value="Register"
                 [disabled]="registerForm.invalid"
               />
-              <p>
-                Already have account? <span (click)="open = false">Login</span>
-              </p>
             </div>
           </fieldset>
         </form>
       </mat-tab>
-      <mat-tab label="Login" *ngIf="!open">
+      <mat-tab label="Login">
         <form>
           <fieldset>
             <div class="form-group">
-              <label for="Name"><span class="req">* </span> Username: </label>
-              <input
-                required
-                type="text"
-                [(ngModel)]="user.username"
-                name="username"
-                class="form-control phone"
-                placeholder="Enter Username"
-                required
-              />
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label> Username</mat-label>
+                <input
+                  matInput
+                  type="text"
+                  [(ngModel)]="user.username"
+                  #username="ngModel"
+                  name="username"
+                  class="form-control phone"
+                  maxlength="28"
+                  placeholder="Enter Username"
+                  required
+                />
+              </mat-form-field>
             </div>
 
-            <div class="form-group" *ngIf="forgotPassword === false">
-              <label for="password"
-                ><span class="req">* </span> Password :
-              </label>
-              <input
-                class="form-control"
-                type="password"
-                [(ngModel)]="user.password"
-                name="password"
-                placeholder="Enter valid password"
-                required
-              />
+            <div class="form-group">
+              <mat-form-field class="outline" appearance="outline">
+                <mat-label>Password</mat-label>
+                <input
+                  matInput
+                  class="form-control"
+                  type="password"
+                  [(ngModel)]="user.password"
+                  #password="ngModel"
+                  name="password"
+                  placeholder="Enter valid password"
+                  required
+                />
+              </mat-form-field>
             </div>
 
-            <div class="form-group" *ngIf="forgotPassword === true">
-              <label for="securityquestion"
-                ><span class="req">* </span> Security Question(favourite sport):
-              </label>
+            <div style="text-align: center">
               <input
-                class="form-control"
-                required
-                type="text"
-                [(ngModel)]="user.securityQuestion"
-                name="securityquestion"
-                placeholder="Enter favourite sport"
-                required
+                class="btn btn-success"
+                type="submit"
+                value="Login"
+                (click)="login()"
               />
-            </div>
-
-            <div>
-              <span style="margin-left: 5px">
-                <button (click)="login()">Login</button>
-                <button (click)="goBackToRegister()">Go Back</button>
-              </span>
               <p>
                 Forgot Password?
-                <span (click)="forgotPassword = true">click here</span>
+                <a
+                  (click)="forgotPassword()"
+                  style="color: blue; cursor: pointer"
+                  >click here</a
+                >
               </p>
             </div>
           </fieldset>

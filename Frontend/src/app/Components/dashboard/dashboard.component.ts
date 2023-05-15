@@ -2,7 +2,6 @@ import { Component, Inject } from '@angular/core';
 import { Router } from '@angular/router';
 import { RestApiService } from 'src/app/Service/rest-api.service';
 import { MatDialog, MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { JwtHelperService } from '@auth0/angular-jwt';
 
 interface MovieInfo {
   movieTheater: {
@@ -30,7 +29,7 @@ interface MovieDto{
 @Component({
   selector: 'app-dashboard',
   templateUrl: './dashboard.component.html',
-  styleUrls: ['./dashboard.component.css']
+  styleUrls: ['./dashboard.component.scss']
 })
 export class DashboardComponent {
   search : any;
@@ -46,18 +45,11 @@ export class DashboardComponent {
   
   
 
-  constructor(private service:RestApiService,public dialog: MatDialog,private router:Router,private jwtHelper: JwtHelperService) { }
+  constructor(private service:RestApiService,public dialog: MatDialog,private router:Router) { }
 
   ngOnInit(): void {
-    this.token = localStorage.getItem('accessToken');
-    const decodedToken = this.jwtHelper.decodeToken(this.token);
-    console.log(decodedToken)
-    this.expiration = new Date(decodedToken.exp * 1000);
     this.getUser(localStorage.getItem("username"));
     this.getAllMovies();
-    setInterval(() => {
-      this.logout();
-    }, 300000);
   }
 
   public getUser(token :any){
@@ -123,8 +115,6 @@ export class DashboardComponent {
       }
     }).afterClosed().subscribe((data) => {
       if(data){
-
-      
       var movie={
         "movieName":data.movieName,
         "theaterName":data.theaterName,
@@ -138,24 +128,13 @@ export class DashboardComponent {
   }
   });
   }
-
-  public resetPassword(){
-    this.dialog.open(resetPasswordDialog).afterClosed().subscribe((data) => {
-      if(data){
-    this.service.resetPassword(data).subscribe((data)=>{
-      console.log(data);
-    },error => {
-      console.log(error)
-    })
-  }
-  });
-  }
  
 }
 
 @Component({
   selector: 'book-ticket-dialog',
   templateUrl: 'bookTicketDialog.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 
 export class bookTicketDialog{
@@ -180,6 +159,7 @@ export class bookTicketDialog{
 @Component({
   selector: 'add-movie-dialog',
   templateUrl: 'addMovieDialog.html',
+  styleUrls: ['./dashboard.component.scss']
 })
 export class addMovieDialog{
   movieData: any;
@@ -188,20 +168,6 @@ export class addMovieDialog{
   }
   close(): void {
     this.dialogRef.close(this.movieData);
-  }
-}
-
-@Component({
-  selector: 'reset-password-dialog',
-  templateUrl: 'resetPasswordDialog.html',
-})
-
-export class resetPasswordDialog{
-  reset: any;
-  constructor( public dialogRef: MatDialogRef<resetPasswordDialog>) {
-  }
-  close(): void {
-    this.dialogRef.close(this.reset);
   }
 }
 

@@ -13,10 +13,12 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.moviebookingapp.dto.CompositeId;
+import com.moviebookingapp.dto.ForgotPasswordRequest;
 import com.moviebookingapp.dto.MovieDto;
 import com.moviebookingapp.entity.MovieInfo;
 import com.moviebookingapp.entity.TicketInfo;
 import com.moviebookingapp.entity.UserInfo;
+import com.moviebookingapp.exceptions.IncorrectSecurityAnswer;
 import com.moviebookingapp.exceptions.MovieAlreadyExistsException;
 import com.moviebookingapp.exceptions.MovieNotFoundException;
 import com.moviebookingapp.exceptions.SeatNotAvailableException;
@@ -60,9 +62,6 @@ public class UserService implements UserDetailsService {
         }
         if (userRepository.existsById(userInfo.getUsername())) {
             throw new UserAlreadyExistsException("User already Exists");
-        }
-        if (!userInfo.getPassword().equals(userInfo.getConfirmPassword())) {
-            throw new Exception("Password and Confirm Pasword should be same");
         }
         userInfo.setPassword(passwordEncoder.encode(userInfo.getPassword()));
         // userRepository.save(userInfo);
@@ -144,14 +143,17 @@ public class UserService implements UserDetailsService {
         return "movie deleted successfully";
     }
 
-    public UserInfo resetPassword(String username, String password) {
-        Optional<UserInfo> user = userRepository.findByUsername(username);
-        if (!isUserPresent(username)) {
-            throw new UserNotFoundException("User not found with username: " + username);
+    public UserInfo resetPassword(ForgotPasswordRequest forgotPasswordRequest) {
+        if (!isUserPresent(forgotPasswordRequest.getUserName())) {
+            throw new UserNotFoundException("User not found with username: " + forgotPasswordRequest.getUserName());
         }
-        user.get().setPassword(passwordEncoder.encode(password));
-        user.get().setConfirmPassword(password);
-        return userRepository.save(user.get());
+        Optional<UserInfo> user = userRepository.findByUsername(forgotPasswordRequest.getUserName());
+        if (forgotPasswordRequest.getSecurityAnswer().equals(user.get().getSecurityQuestion())) {
+            user.get().setPassword(passwordEncoder.encode(forgotPasswordRequest.getNewPassword()));
+            return userRepository.save(user.get());
+        } else {
+            throw new IncorrectSecurityAnswer("Incorrect Security Answer");
+        }
     }
 
     @Override

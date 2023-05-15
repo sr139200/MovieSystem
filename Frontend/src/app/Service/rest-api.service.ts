@@ -66,12 +66,8 @@ export class RestApiService {
     })
   }
 
-  public resetPassword(password:any){
-     return this.http.post("http://localhost:8090/moviebookingapp/"+localStorage.getItem("username")+"/forgot",password,{
-       "headers": {
-         "authorization": `Bearer ${localStorage.getItem("accessToken")}`
-       }, "responseType": "text"
-     })
+  public resetPassword(data:any){
+     return this.http.post("http://localhost:8090/moviebookingapp/forgot",data, {"responseType": "text"})
    }
 
 }

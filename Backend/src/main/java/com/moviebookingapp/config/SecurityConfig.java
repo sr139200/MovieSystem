@@ -40,7 +40,8 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http.csrf().disable()
                 .authorizeHttpRequests()
-                .requestMatchers("/moviebookingapp/register", "/moviebookingapp/login", "/moviebookingapp/user/*")
+                .requestMatchers("/moviebookingapp/register", "/moviebookingapp/login", "/moviebookingapp/forgot",
+                        "/moviebookingapp/user/*")
                 .permitAll()
                 .requestMatchers("/v3/api-docs", "/swagger-ui/**").permitAll()
                 .anyRequest()

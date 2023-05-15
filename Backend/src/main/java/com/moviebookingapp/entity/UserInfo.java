@@ -43,10 +43,6 @@ public class UserInfo {
     @NotBlank(message = "Enter valid password")
     private String password;
 
-    @Size(min = 2, max = 15)
-    @NotBlank(message = "ReEnter valid password")
-    private String confirmPassword;
-
     @NotBlank(message = "Enter valid role")
     private String role;
 

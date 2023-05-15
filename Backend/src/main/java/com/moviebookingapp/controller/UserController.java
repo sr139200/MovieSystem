@@ -11,10 +11,12 @@ import org.springframework.security.authentication.UsernamePasswordAuthenticatio
 import org.springframework.web.bind.annotation.*;
 
 import com.moviebookingapp.dto.AuthRequest;
+import com.moviebookingapp.dto.ForgotPasswordRequest;
 import com.moviebookingapp.dto.MovieDto;
 import com.moviebookingapp.entity.MovieInfo;
 import com.moviebookingapp.entity.TicketInfo;
 import com.moviebookingapp.entity.UserInfo;
+import com.moviebookingapp.exceptions.IncorrectSecurityAnswer;
 import com.moviebookingapp.exceptions.UserNotFoundException;
 import com.moviebookingapp.service.JwtService;
 import com.moviebookingapp.service.UserService;
@@ -49,30 +51,29 @@ public class UserController {
     }
 
     @PostMapping("/login")
-    public String login(@Valid @RequestBody AuthRequest authRequest) {
+    public ResponseEntity<?> login(@Valid @RequestBody AuthRequest authRequest) {
         try {
             authenticationManager.authenticate(
                     new UsernamePasswordAuthenticationToken(authRequest.getUsername(), authRequest.getPassword()));
-            return jwtService.generateToken(authRequest.getUsername());
+            return ResponseEntity.ok(jwtService.generateToken(authRequest.getUsername()));
         } catch (BadCredentialsException ex) {
-            return "Wrong Password";
+            return ResponseEntity.status(401).body("Wrong Password");
         } catch (InternalAuthenticationServiceException ex) {
-            return ex.getMessage();
+            return ResponseEntity.status(401).body(ex.getMessage());
         }
     }
 
-    @RequestMapping(value = "/{username}/forgot", method = RequestMethod.POST)
-    public ResponseEntity<?> resetPassword(@PathVariable(name = "username") String username,
-            @RequestBody String password, @RequestHeader("Authorization") String authorizationHeader) {
-        String loggedUser = jwtService.extractUsername(authorizationHeader.substring(7));
-        if (loggedUser.equals(username)) {
-            try {
-                return ResponseEntity.ok(userService.resetPassword(username, password));
-            } catch (UserNotFoundException ex) {
-                return ResponseEntity.status(403).body(ex.getMessage());
-            }
+    @RequestMapping(value = "/forgot", method = RequestMethod.POST)
+    public ResponseEntity<?> resetPassword(
+            @RequestBody ForgotPasswordRequest forgotPasswordRequest) {
+        try {
+            userService.resetPassword(forgotPasswordRequest);
+            return ResponseEntity.ok("Password Updated Successfuly!");
+        } catch (UserNotFoundException ex) {
+            return ResponseEntity.status(404).body(ex.getMessage());
+        } catch (IncorrectSecurityAnswer ex) {
+            return ResponseEntity.status(403).body(ex.getMessage());
         }
-        return ResponseEntity.status(401).body("Unauthorised access");
     }
 
     @PostMapping("/addMovie")
@@ -87,10 +88,10 @@ public class UserController {
     }
 
     @GetMapping("/user/{username}")
-    public ResponseEntity<?> getUserBuUsername(@PathVariable(name = "username") String username){
-        try{
+    public ResponseEntity<?> getUserBuUsername(@PathVariable(name = "username") String username) {
+        try {
             return ResponseEntity.ok(userService.getUser(username));
-        }catch(Exception ex){
+        } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }

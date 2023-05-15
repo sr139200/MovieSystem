@@ -40,23 +40,13 @@
         <mat-icon>logout</mat-icon>
         <span>logout</span>
       </button>
-      <button mat-menu-item (click)="resetPassword()" title="Reset Password">
-        <mat-icon>edit</mat-icon>
-        <span>change password</span>
-      </button>
     </mat-menu>
   </div>
 </mat-toolbar>
-<div class="row">
+<div class="row" style="margin-left: 15px">
   <mat-card
     *ngFor="let data of allMovies | filter : search"
     class="example-card col-md-4"
-    style="
-      margin-top: 15px;
-      margin-left: 25px;
-      border: 2px solid black;
-      border-radius: 10px;
-    "
     ><mat-card-actions align="end">
       <button
         *ngIf="isAdmin"
